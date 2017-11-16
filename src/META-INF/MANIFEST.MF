@@ -1,0 +1,48 @@
+Manifest-Version: 1.0
+Class-Path: hamcrest-core-1.3.jar sqljdbc4.jar juli-6.0.20.jar zip4j_1
+ .3.2.jar guava-16.0.1.jar commons-io-2.4.jar httpcore-4.3.3.jar httpm
+ ime-4.3.6.jar json-simple-1.1.jar httpclient-4.3.6.jar org.json-20120
+ 521.jar jackson-core-2.4.1.jar bonecp-0.7.1.RELEASE.jar commons-loggi
+ ng-1.1.3.jar javax.servlet.jsp.jstl.jar jackson-mapper-asl-1.0.0.jar 
+ gson-2.2.4.jar gson-2.2.4-javadoc.jar gson-2.2.4-sources.jar javax.se
+ rvlet.jsp.jstl.jar jansi-1.8.jar serp-1.14.1.jar hawtbuf-1.10.jar how
+ l-1.0.1-1.jar hsqldb-2.3.2.jar mimepull-1.7.jar neethi-3.0.3.jar wsdl
+ 4j-1.6.3.jar wss4j-1.6.15.jar xmlsec-1.5.6.jar bval-core-0.5.jar cxf-
+ api-2.6.14.jar jettison-1.3.4.jar openws-1.4.2-1.jar bval-jsr303-0.5.
+ jar commons-cli-1.2.jar jaxb-core-2.2.7.jar jaxb-impl-2.2.7.jar joda-
+ time-1.6.2.jar slf4j-api-1.7.7.jar stax2-api-3.1.4.jar sxc-runtime-0.
+ 8.jar commons-dbcp-1.4.jar commons-lang-2.6.jar javaee-api-6.0-6.jar 
+ opensaml-2.5.1-1.jar saaj-impl-1.3.18.jar xbean-naming-4.0.jar xml-re
+ solver-1.2.jar openejb-api-4.7.1.jar openejb-cxf-4.7.1.jar openejb-je
+ e-4.7.1.jar slf4j-jdk14-1.7.7.jar sxc-jaxb-core-0.8.jar xbean-reflect
+ -4.0.jar activemq-ra-5.10.0.jar commons-pool-1.5.7.jar cxf-rt-core-2.
+ 6.14.jar FastInfoset-1.2.12.jar openejb-core-4.7.1.jar openejb-ejbd-4
+ .7.1.jar openejb-hsql-4.7.1.jar openejb-http-4.7.1.jar openejb-rest-4
+ .7.1.jar xmltooling-1.3.2-1.jar commons-lang3-3.3.2.jar openejb-clien
+ t-4.7.1.jar openejb-cxf-rs-4.7.1.jar openejb-daemon-4.7.1.jar openejb
+ -loader-4.7.1.jar openejb-server-4.7.1.jar swizzle-stream-1.6.2.jar x
+ mlschema-core-2.0.3.jar activemq-protobuf-1.1.jar commons-logging-1.1
+ .1.jar cxf-rt-ws-addr-2.6.14.jar openwebbeans-ee-1.2.6.jar xbean-asm5
+ -shaded-4.0.jar xbean-bundleutils-4.0.jar activemq-broker-5.10.0.jar 
+ activemq-client-5.10.0.jar openwebbeans-ejb-1.2.6.jar openwebbeans-sp
+ i-1.2.6.jar openwebbeans-web-1.2.6.jar cxf-rt-ws-policy-2.6.14.jar op
+ enejb-javaagent-4.7.1.jar openejb-multicast-4.7.1.jar openwebbeans-el
+ 22-1.2.6.jar openwebbeans-impl-1.2.6.jar woodstox-core-asl-4.2.1.jar 
+ xbean-finder-shaded-4.0.jar cxf-rt-management-2.6.14.jar geronimo-con
+ nector-3.1.1.jar commons-collections-3.2.1.jar cxf-rt-ws-security-2.6
+ .14.jar openejb-webservices-4.7.1.jar activemq-jdbc-store-5.10.0.jar 
+ cxf-rt-bindings-xml-2.6.14.jar geronimo-transaction-3.1.1.jar mbean-a
+ nnotation-api-4.7.1.jar quartz-openejb-shade-2.2.1.jar cxf-rt-binding
+ s-soap-2.6.14.jar istack-commons-runtime-2.16.jar openejb-cxf-transpo
+ rt-4.7.1.jar openejb-jee-accessors-4.7.1.jar activemq-kahadb-store-5.
+ 10.0.jar commons-beanutils-core-1.8.3.jar cxf-rt-frontend-jaxrs-2.6.1
+ 4.jar cxf-rt-frontend-jaxws-2.6.14.jar openwebbeans-ee-common-1.2.6.j
+ ar cxf-rt-frontend-simple-2.6.14.jar cxf-rt-transports-http-2.6.14.ja
+ r openejb-jpa-integration-4.7.1.jar cxf-rt-databinding-jaxb-2.6.14.ja
+ r cxf-rt-rs-security-cors-2.6.14.jar openjpa-2.4.0-nonfinal-1598334.j
+ ar activemq-openwire-legacy-5.10.0.jar cxf-rt-rs-security-oauth2-2.6.
+ 14.jar geronimo-javamail_1.4_mail-1.8.3.jar cxf-rt-rs-extension-searc
+ h-2.6.14.jar cxf-rt-rs-extension-providers-2.6.14.jar geronimo-j2ee-c
+ onnector_1.6_spec-1.0.jar
+Main-Class: com.Main
+
