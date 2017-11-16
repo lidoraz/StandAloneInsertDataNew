@@ -17,7 +17,9 @@ import java.util.concurrent.atomic.AtomicInteger;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-
+/**
+ * "This app process json files and writes tsv files based on Sherlock project.\n\n Click OK to choose directory"
+ */
 public class Main {
 
     private static Logger logger = Logger.getLogger("");
@@ -41,22 +43,17 @@ public class Main {
             "Wifi"};
 
 
-    //public static ArrayBlockingQueue<String> dataQueue = new ArrayBlockingQueue<>(300000);
-
-
-    public static final int QUEUE_LIMIT = 1000;
-    public static final int EXIST_IN_MAP_DURATION = 5000; // x/1000 - time in sec for an item in map to stay before output it.
+    static final int QUEUE_LIMIT = 1000;
+    static final int EXIST_IN_MAP_DURATION = 5000; // x/1000 - time in sec for an item in map to stay before output it.
     private static final long LEAST_USABLE_SPACE = 10737418240L;
     private static String JSONPATH;
     private static String OUTPUTPATH = "outputTSV";
-    private static final long OVERLAP_MILISECONDS =345600000L; //equal to 4 days.
-    //private static boolean isContinueReadFiles=true;
-
+    private static final long OVERLAP_MILISECONDS = 345600000L; //equal to 4 days.
 
     private static boolean shouldLimitUUIDRange = true;
     private static long uuidRestrictionMax = 0;
     private static long uuidRestrictionMin = 0;
-    public static String outputQFolder;
+    static String outputQFolder;
 
     public static void main(String[] args) throws IOException, InterruptedException {
 
@@ -83,46 +80,8 @@ public class Main {
         System.out.println("JSONPATH = " + JSONPATH);
         System.out.println(" \nopening J panel to choose a directory..");
 
-
-        //JOptionPane.showMessageDialog(null, "This app process json files and writes tsv files based on Sherlock project.\n\n Click OK to choose directory");
-
         start(init());
 
-//
-//        JFileChooser f = new JFileChooser();
-//
-//        f.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
-//
-//        f.showOpenDialog(null);
-////
-//        if (f.getSelectedFile() == null) {
-//
-//            //JSONPATH="Y:/SherlockQ4_2016";
-//            JOptionPane.showMessageDialog(null, "Closing..");
-//        } else {
-//            JSONPATH = f.getSelectedFile().getAbsolutePath();
-//            JOptionPane.showMessageDialog(null, "Chosen directory:\n \"" + JSONPATH + "\"\n make sure there are uncompressed json files.");
-//            System.out.println("JSONPATH = " + JSONPATH);
-//            String sleepTime;
-//            sleepTime = JOptionPane.showInputDialog("Wish to sleep? set in [X] minutes\n Leave blank and OK for immediate start");
-//            System.out.println(sleepTime);
-//
-//            if (sleepTime == null) {
-//                return;
-//            }
-//            if (sleepTime.equals("")) {
-//                start(init());
-//            } else {
-//                long sleepT = Long.parseLong(sleepTime) * 60000;// min to milliseconds
-//                System.out.println("sleeping for " + sleepT + " milliseconds");
-//
-//                Thread.sleep(sleepT);
-//                start(init());
-//            }
-//
-//
-//        }
-//
 
     }
 
@@ -170,8 +129,7 @@ public class Main {
             File[] filterdFiles = Arrays.stream(listOfFiles).filter(Main::isFileBetweenWeekRangeUUID).toArray(File[]::new);
 
             listOfFiles = filterdFiles; //switch between them.
-            System.out.println("Files filtered between set uuidMin-Week to uuidMax+Week :: | number of filterdFiles: " +filterdFiles.length);
-
+            System.out.println("Files filtered between set uuidMin-Week to uuidMax+Week :: | number of filterdFiles: " + filterdFiles.length);
 
 
             //read each file (skip directories) and add it to dataQueue.
@@ -242,18 +200,18 @@ public class Main {
 
 
                     }
-                    int progressPercent=(int )((float )i/listOfFiles.length *100);
-                    logger.log(Level.INFO,"Main:  "+ progressPercent +"% read");
-                    System.out.println("Main:  "+ progressPercent  +"% read" );
+                    int progressPercent = (int) ((float) i / listOfFiles.length * 100);
+                    logger.log(Level.INFO, "Main:  " + progressPercent + "% read");
+                    System.out.println("Main:  " + progressPercent + "% read");
 
                     //do not move files which are week between start and end.
-                    long fileCreateTime=getFileUUID(currFile);
-                    if(uuidRestrictionMin+ OVERLAP_MILISECONDS <fileCreateTime && fileCreateTime< uuidRestrictionMax- OVERLAP_MILISECONDS){
+                    long fileCreateTime = getFileUUID(currFile);
+                    if (uuidRestrictionMin + OVERLAP_MILISECONDS < fileCreateTime && fileCreateTime < uuidRestrictionMax - OVERLAP_MILISECONDS) {
                         try {
                             Files.move(Paths.get(currFile.getPath()), Paths.get(JSONPATH + "/done/" + currFile.getName()));
                         } catch (IOException e) {
                             logger.log(Level.SEVERE, e.toString(), e);
-                            System.out.println("IOException in Main:" +e.getMessage());
+                            System.out.println("IOException in Main:" + e.getMessage());
                             logger.warning("IOException in Main:");
                             logger.warning(e.getMessage());
                             e.printStackTrace();
@@ -273,18 +231,14 @@ public class Main {
             processLatch.await(Long.MAX_VALUE, TimeUnit.SECONDS); //wait for pool to finish.
             logger.info("Main: Waiting for writeThreads to finish");
 
-            for (int i = 0; i < tableHashMaps.length; i++) { //notify all write threads.
-                synchronized (tableHashMaps[i]) {
-                    tableHashMaps[i].notifyAll();
+            for (ConcurrentHashMap tableHashMap : tableHashMaps) { //notify all write threads.
+                synchronized (tableHashMap) {
+                    tableHashMap.notifyAll();
                 }
             }
             writeLatch.await(Long.MAX_VALUE, TimeUnit.SECONDS);//this will block main until the threads have finished writing is shutdown /time has passed. which comes first.
             logger.info("Main: writeThreads have finished. exiting..");
 
-//            System.out.println("NO ELEMTNS SHOULD BE HERE:");
-//            for (int i = 0; i < tableHashMaps.length; i++) {
-//                System.out.println("table " + i + " size:" + tableHashMaps[i].size());
-//            }
             System.out.println("Time ended:  " + DateFormat.getInstance().format(System.currentTimeMillis()));
 
             long totalTimeInSeconds = (System.currentTimeMillis() - startTime) / 1000;
@@ -361,7 +315,7 @@ public class Main {
                 throw new IOException("could not create directory");
             }
         }
-        File fQfolder = new File(OUTPUTPATH + "/" +outputQFolder); //create outputTSV/outputQFolder folder
+        File fQfolder = new File(OUTPUTPATH + "/" + outputQFolder); //create outputTSV/outputQFolder folder
         if (!fQfolder.isDirectory()) {
             logger.info("creating a directory for outputQFolder");
             if (!fQfolder.mkdir()) {
@@ -378,27 +332,27 @@ public class Main {
             }
         }
     }
-    private static long getFileUUID(File currfile){
-        String fileName=currfile.getName();
-        try {
-            int underScore=fileName.indexOf('_') + 1;
-            return Long.parseLong(fileName.substring(underScore,underScore+ 13));
-        } catch (NumberFormatException e) {
-            throw e;
-        }
+
+    private static long getFileUUID(File currfile) {
+        String fileName = currfile.getName();
+
+        int underScore = fileName.indexOf('_') + 1;
+        return Long.parseLong(fileName.substring(underScore, underScore + 13));
+
     }
-    private static boolean isFileBetweenWeekRangeUUID(File file){
-        if(!file.isFile()){
+
+    private static boolean isFileBetweenWeekRangeUUID(File file) {
+        if (!file.isFile()) {
             return false;
         }
         String fileName = file.getName();
         if (fileName.indexOf('_') == -1) { //not in the format.
             return false;
         }
-        long fileCreateTime=-1;
+        long fileCreateTime = -1;
         try {
 
-            fileCreateTime=getFileUUID(file);
+            fileCreateTime = getFileUUID(file);
         } catch (NumberFormatException e) {
 
             e.printStackTrace();
@@ -408,7 +362,7 @@ public class Main {
         return (uuidRestrictionMin - OVERLAP_MILISECONDS) <= fileCreateTime && fileCreateTime < (uuidRestrictionMax + OVERLAP_MILISECONDS);
     }
 
-    public static File[] init() throws IOException {
+    private static File[] init() throws IOException {
         System.out.println("initializing..");
 
         File folder = new File(JSONPATH);

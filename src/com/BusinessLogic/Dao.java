@@ -22,24 +22,24 @@ public class Dao {
     private DynamicProbsInterface Dynamicprobs;
 
     public static ConcurrentHashMap[] tableHashMaps;
-    public static final int _ALLBROADCASTPROBE = 0;
-    public static final int _APPLICATION = 1;
-    public static final int _APPPACKAGES = 2;
-    public static final int _BLUETOOTH = 3;
-    public static final int _BROSWERSEARCHES = 4;
-    public static final int _CALL = 5;
-    public static final int _CHROMEBOOKMARKS = 6;
-    public static final int _ERRORSENSOR = 7;
-    public static final int _MORIARTYPROBE = 8;
-    public static final int _SCREENON = 9;
-    public static final int _SMS = 10;
+    static final int _ALLBROADCASTPROBE = 0;
+    static final int _APPLICATION = 1;
+    static final int _APPPACKAGES = 2;
+    static final int _BLUETOOTH = 3;
+    static final int _BROSWERSEARCHES = 4;
+    static final int _CALL = 5;
+    static final int _CHROMEBOOKMARKS = 6;
+    static final int _ERRORSENSOR = 7;
+    static final int _SCREENON = 9;
+    static final int _MORIARTYPROBE = 8;
+    static final int _SMS = 10;
     public static final int _T0 = 11;
-    public static final int _T1 = 12;
-    public static final int _T2 = 13;
+    static final int _T1 = 12;
+    static final int _T2 = 13;
     public static final int _T3 = 14;
-    public static final int _T4 = 15;
-    public static final int _USERPRESENTPROBE = 16;
-    public static final int _WIFI = 17;
+    static final int _T4 = 15;
+    static final int _USERPRESENTPROBE = 16;
+    static final int _WIFI = 17;
 
     public long uuidRestrictionMax=0;
     public long uuidRestrictionMin=0;
@@ -123,7 +123,7 @@ public class Dao {
 
         switch (sensorName) {
 
-            /**T0**/
+            /*T0**/
             case "com.bgu.agent.sensors.TelephonyProbe":
                 T0.TelephoneyProb(jsonObject, userName, version);
                 break;
@@ -133,7 +133,7 @@ public class Dao {
             case "com.bgu.agent.sensors.SystemInfoProbe":
                 T0.SystemInfoProb(jsonObject, userName, version);
                 break;
-            /**T1**/
+            /*T1**/
             case "edu.mit.media.funf.probe.builtin.CellTowerProbe":
                 T1.CellTower(jsonObject, userName, version);
                 break;
@@ -160,21 +160,21 @@ public class Dao {
                 T1.SmsInfoProbe(jsonObject, userName, version);
                 break;
 
-            /**T2**/
+            /*T2**/
             case "com.bgu.agent.sensors.MotionProbe":
                 T2.MotionProbe(jsonObject, userName, version);
                 break;
             case "com.bgu.agent.sensors.OrientationRotationProbe":
                 T2.OrientationRotationProbe(jsonObject, userName, version);
                 break;
-            /**T3**/
+            /*T3**/
             case "edu.mit.media.funf.probe.builtin.LightSensorProbe":
                 T3.lightSensor(jsonObject, userName, version);
                 break;
             case "com.bgu.agent.sensors.AudioFeaturesProbe":
                 T3.audioSesnsor(jsonObject, userName, version);
                 break;
-            /**T4**/
+            /*T4**/
             case "com.bgu.agent.sensors.TrafficStatsProbe":
                 T4.TrafficStatsProbe(jsonObject, userName, version);
                 break;
@@ -187,7 +187,7 @@ public class Dao {
             case "edu.mit.media.funf.probe.builtin.BatteryProbe":
                 T4.BatteryProbe(jsonObject, userName, version);
                 break;
-            /**DynamicProbes**/
+            /*DynamicProbes**/
             case "edu.mit.media.funf.probe.builtin.ScreenProbe":
                 Dynamicprobs.screenOn(jsonObject, userName, version);
                 break;
@@ -218,9 +218,6 @@ public class Dao {
 
     private boolean isInRangeLimitUUID(long l) {
 
-        if(uuidRestrictionMin<=l&&uuidRestrictionMax>l){
-            return true;
-        }
-        return false;
+        return uuidRestrictionMin <= l && uuidRestrictionMax > l;
     }
 }

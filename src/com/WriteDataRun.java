@@ -64,14 +64,7 @@ public class WriteDataRun implements Runnable {
     @Override
     public void run() {
 
-
         try {
-//            File f = new File("outputTSV\\" + tableName + ".tsv");
-//            if (!f.exists()) {
-//                if (!f.createNewFile()) {
-//                    throw new IOException("could not create directory");
-//                }
-//            }
 
             File f = new File("outputTSV\\"+Main.outputQFolder+"\\" + tableName + ".tsv");
             if (!f.exists()) {
